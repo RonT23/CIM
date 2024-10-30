@@ -1,7 +1,5 @@
 # Petri Net Sim Package
 
-implements a simple Petri network simulator with inhibitory arcs. The package offers a minimal visualization network tool.
+This project provides an implements of a simple Petri network simulator with inhibitory arcs. 
+The package also offers a minimal visualization tool for the simulated network.
 
-## Installation
-
-You can install the required packages using pip:

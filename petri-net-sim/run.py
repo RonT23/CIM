@@ -1,5 +1,5 @@
-import sim.py 
-import vis.py
+from petri_net_sim_package.petri_net_sim import *
+from petri_net_sim_package.petri_net_vis import *
 
 if __name__ == "__main__" :
     
@@ -25,7 +25,7 @@ if __name__ == "__main__" :
     net.add_input_arc("T2", "P2", weight=1)
     net.add_output_arc("T2", "P4", weight=1)
 
-    net.add_inhibitory_arc("T3", "P3")
+    net.add_input_arc("T3", "P3")
     net.add_input_arc("T3", "P4", weight=1)
     net.add_output_arc("T3", "P1", weight=1)
     net.add_output_arc("T3", "P2", weight=1)
@@ -40,5 +40,6 @@ if __name__ == "__main__" :
 
     net.export_structure("structure.json")
     net.simulate(target_transition_name=target_transition_name, total_transition_activations=total_transition_activations)
-
+    
+    visualize_petri_net("structure.json", "simulation_log.json")
 #### End of program

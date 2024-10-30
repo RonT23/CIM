@@ -227,8 +227,11 @@ class PetriNet:
     def export_structure(self, file_name="structure.json"):
         
         # Delete the old versions of the structure configuration file
-        os.remove(file_name)
-
+        try:
+            os.remove(file_name)
+        except:
+            pass
+            
         petri_net_struct_data = {
             "places": [{"name": place.name, "tokens": place.tokens} for place in self.places.values()],
             "transitions": list(self.transitions.keys()),
@@ -248,8 +251,11 @@ class PetriNet:
         log = []
 
         # Delete the old versions of the lof file
-        os.remove(log_file)
-
+        try:
+            os.remove(log_file)
+        except:
+            pass
+            
         while target_activation_count < total_transition_activations:
             
             enabled_transitions = [t for t in self.transitions.values() if t.is_enabled()]
