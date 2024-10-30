@@ -1,5 +1,4 @@
 from petri_net_sim_package.petri_net_sim import *
-from petri_net_sim_package.petri_net_vis import *
 
 if __name__ == "__main__" :
     

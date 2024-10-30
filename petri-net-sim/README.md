@@ -8,7 +8,6 @@
                 \__ petri_net_sim_package/
                         \__ __init__.py
                         \__ petri_net_sim.py
-                        \__ petri_net_vis.py
                 \__ README.md
                 \__ setup.py
         \__ simulations/
