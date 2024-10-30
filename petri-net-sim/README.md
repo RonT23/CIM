@@ -1,51 +1,96 @@
 # Petri-Net Simulation
 
-## Directory Structure 
+## Folder Structure
+
+```bash
+    petri-net-sim/
+        \__ petri_net_sim_package/
+                \__ petri_net_sim_package/
+                        \__ __init__.py
+                        \__ petri_net_sim.py
+                        \__ petri_net_vis.py
+                \__ README.md
+                \__ setup.py
+        \__ simulations/
+                \__ net_1.py
+                \__ net_2.py
+        \__ results/
+                \__ net_1_results.txt
+                \__ net_2_results.txt
+        \__ README.md
+        \__ run.py
+        \__ docs
+                \__ petri_net_sim_report.pdf
+
+```
 
 ## Description
 
+The Petri Net simulator is a simple Python package for simulating Petri networks. This simulator can also model inhibitor arcs, a feature not defined in classical Petri nets. Additionally, the package includes a module for visualizing the constructed graph. Results exported from the simulator are easy to integrate with other programs, as they use JSON format, which widely adopted also for graph descriptions and simulation results.
+
+## Prerequisites
+
+This package is written in Python, making it largely hardware- and operating system-agnostic, so it should operate similarly across different systems. However, as development and testing were conducted in a Linux-based environment, it is recommend using a Linux environment to run the simulator. Most commands should also work on Windows via Windows Subsystem for Linux (WSL), or by using a virtual machine on a Windows host running one of the many Linux distros.
+
+The only requirement is Python version 3.5 or higher. Other than that, there are no additional dependencies to run the simulator.
+
+## Create Virtual Environment
+
+To keep this package separate from other Python packages on your system, it is best practice to use a virtual environment. To create and activate a virtual environment, follow these steps inside the project folder.
+
+```bash
+   $ python3 -m venv petri_net_env
+   $ source ./petri_net_env/bin/activate
+```
+
 ## Package Installation 
 
-Go to `./petri_net_sim_package` and run the following command to install the package locally on your computer.
+Navigate to the `./petri_net_sim_package` directory and run the following command to install the package locally on your computer (within the virtual environment you created).
 
 ```bash
     $ pip3 install -e .
 ```
 
-## Configure the Network
+## Define a New Petri Network
 
-Open the `run.py` Python script. This is a template that sets up the simulator. Configure the target Petri network to simulate in the section that starts with `##### Define here your Petri network ####` and terminates with `##### End of network definitions     ####`. Do not change the rest of the code. Follow the following configuration guidelines:
+Open the `run.py` Python script, which serves as a template for setting up the simulator. Configure the target Petri network for simulation in the section beginning with `##### Define here your Petri network ####` and ending with `##### End of network definitions     ####`. Avoid modifying other parts of the code. To model the Petri network for simulation follow these steps:
 
-1. Set-Up the Places
+1. Set Up the Places
 
-Use the `net.add_place(place_name, initial_tokes)` to add a place node to the graph.
+Use `net.add_place(place_name, initial_tokens)` to add a place node to the graph. Place names are typically assigned names as `Pi`, where `i = 1, 2, 3, ... n` for `n` places. If the initial token count is not specified for a place, it defaults to 0.
 
-2. Set-Up the Transitions
+2. Set Up the Transitions
 
-Use the `net.add_transition(transition_name)` to add a transition node to the graph.
+Use `net.add_transition(transition_name)` to add a transition node to the graph. Transitions are named usually with `Ti`, where `i = 1,2, 3, ... m`, for `m` transitions.
 
-3. Set the Arcs
+3. Set Up the Arcs
 
-Use the `net.add_input_arc(transition_name, place_name, weight)` to add an input arc from the specified place to the specified transition with the specified weight. Use `net.add_output_arc(transition_name, place_name, weight)` to add an output arc from the specified transition to the specified place with the specified weight. Use `net.add_inhibitory_arc(transition_name, place_name)` to add an inhibitory arc from the specified place node to the specified transition node. 
+The simulator supports three types of arcs that connect places and transitions: input, output, and inhibitor.
 
-    target_transition_name = "T3"
-    total_transition_activations = 6
+* Use the `net.add_input_arc(transition_name, place_name, weight)` to add an input arc from the specified place to the specified transition with the given weight. If the weight is not defined then the arc will be assigned unit weight. 
 
-4. Set the Termination Condition
+* Use `net.add_output_arc(transition_name, place_name, weight)` to add an output arc from the specified transition to the specified place with the specified weight. If the weight is not defined then the arc will be assigned unit weight.
 
-Set the value of `target_transition_name` equal to the target transition node and `total_transition_activations` equal to the number of total activations of the specified target trasition. These will operate as simulation termination conditions. 
+* Use `net.add_inhibitory_arc(transition_name, place_name)` to add an inhibitory arc from the specified place node to the specified transition node. 
 
-## Run Simulation
+4. Set Up the Termination Condition
 
-To run the simulation execute the program as follows:
+Assign `target_transition_name` to the desired target transition node and `total_transition_activations` to the total number of activations for that transition. These values will serve as the simulation's termination conditions. Specifically the simulation will run for as many steps as required for either the target transition node is fired for the total transition activation parameter defined or a deadlock occures. In both situations the simulation will terminate.
+
+## Run Simulations
+
+To run the newly configured simulation, simply execute the program as follows:
+
 ```bash
     $ python3 run.py
 ```
 
-### Output
+In folder `./simulations/` you will find two ready-to-execute scripts that model two Petri networks based on the requirements of the task.
 
-The output of the simulator is two `.json` files: one that describes the networks structure and another one that contains the simulation results. These files are then parsed as input to the visualization script which subsequently produces a simple graphical representation of the changes occured on the Petri network for all the steps passed. 
+### Simulation Output
+
+The simulator upon execution outputs two JSON files: one describes the network's structure, while the other contains the simulation results. These files are then parsed as input to the visualization script, which produces a graphical representation of the changes that occurred in the Petri network throughout all the simulation steps. Each step is graphically visualized with a delay in between steps set to 1 second. Also the content of the simulation results JSON file is extracted into a more intuitive and easy to work with TXT file. You can find such files in `./results/` folder.  
 
 ## Documentation
 
-More details can be found in `petri_net_sim_report.pdf` in `./Docs/`. For more information please contact me at: `rontsela@mail.ntua.gr` or `ron-tsela@di.uoa.gr`.
+More details can be found in `petri_net_sim_report.pdf` located in the `./docs/` folder. For further information, please contact me at `rontsela@mail.ntua.gr` or `ron-tsela@di.uoa.gr`.

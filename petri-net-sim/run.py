@@ -40,6 +40,7 @@ if __name__ == "__main__" :
 
     net.export_structure("structure.json")
     net.simulate(target_transition_name=target_transition_name, total_transition_activations=total_transition_activations)
-    
+   
+    json_to_txt("simulation_log.json", "simulation_results.txt")
     visualize_petri_net("structure.json", "simulation_log.json")
 #### End of program
