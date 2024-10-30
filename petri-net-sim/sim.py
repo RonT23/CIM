@@ -4,11 +4,12 @@
     Description : A simple implementation of a Petri Net simulator including inhibitory arcs and visualization.
     Designer    : Ronaldo Tsela
     Date        : 28/10/2024
-    Depedencies : json, random
+    Depedencies : json, random, os
 """
 
 import random
 import json
+import os
 
 """
     This class creates and manages places in a Petri net, where each place
@@ -216,7 +217,6 @@ class PetriNet:
         transition.add_output_arc(place, weight)
         self.arcs.append({"from": transition_name, "to": place_name, "type": "output", "weight": weight})
 
-
     def add_inhibitory_arc(self, transition_name, place_name):
         transition = self.transitions[transition_name]
         place = self.places[place_name]
@@ -224,6 +224,9 @@ class PetriNet:
         self.arcs.append({"from": place_name, "to": transition_name, "type": "inhibitory"})
 
     def export_structure(self, file_name="structure.json"):
+        
+        # Delete the old versions of the structure configuration file
+        os.remove(file_name)
 
         petri_net_struct_data = {
             "places": [{"name": place.name, "tokens": place.tokens} for place in self.places.values()],
@@ -242,6 +245,9 @@ class PetriNet:
         target_activation_count = 0
         steps = 0
         log = []
+
+        # Delete the old versions of the lof file
+        os.remove(log_file)
 
         while target_activation_count < total_transition_activations:
             
@@ -265,43 +271,58 @@ class PetriNet:
                     target_activation_count += 1
                 
                 step_state = {place.name: place.tokens for place in self.places.values()}
+                step_state["Target_Fired"] = target_activation_count
                 log.append(step_state)
-        
-        # Create the output file
+           
+        # Create the output file and export the simualtion results
         with open(log_file, "w") as file:
             json.dump(log, file)
 
-        # Final message if deadlock prevented completion
+        print(f"Target transition activations: {target_activation_count}/{total_transition_activations}")
+
         if target_activation_count < total_transition_activations:
-            print(f"Simulation ended due to deadlock after {steps} steps. Target transition activations: {target_activation_count}/{total_transition_activations}")
+            print(f"Simulation ended due to deadlock after {steps} steps.")
         else:
             print(f"Simulation completed successfully in {steps} steps.")
-
 
 if __name__ == "__main__" :
     
     net = PetriNet()
-    
+
+##### Define here your Petri network ####
+
+    # 1. Define the places
     net.add_place("P1", tokens=1)
-    net.add_place("P2", tokens=0)
-    net.add_place("P3", tokens=2)
+    net.add_place("P2", tokens=2)
+    net.add_place("P3", tokens=0)
     net.add_place("P4", tokens=0)
 
+    # 2. Define the transitions
     net.add_transition("T1")
     net.add_transition("T2")
     net.add_transition("T3")
     
+    # 3. Define the arcs per transition
     net.add_input_arc("T1", "P1", weight=1)
     net.add_output_arc("T1", "P3", weight=1)
 
     net.add_input_arc("T2", "P2", weight=1)
     net.add_output_arc("T2", "P4", weight=1)
 
-    net.add_input_arc("T3", "P3", weight=1)
+    net.add_inhibitory_arc("T3", "P3")
     net.add_input_arc("T3", "P4", weight=1)
     net.add_output_arc("T3", "P1", weight=1)
     net.add_output_arc("T3", "P2", weight=1)
-    
-    net.export_structure("structure.json")
 
-    net.simulate(target_transition_name="T3", total_transition_activations=3)
+    # 4. Define termination conditions
+    target_transition_name = "T3"
+    total_transition_activations = 6
+
+##### End of network definitions     ####
+
+##### Don't touch these
+
+    net.export_structure("structure.json")
+    net.simulate(target_transition_name=target_transition_name, total_transition_activations=total_transition_activations)
+
+#### End of program

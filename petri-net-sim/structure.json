@@ -6,11 +6,11 @@
         },
         {
             "name": "P2",
-            "tokens": 0
+            "tokens": 2
         },
         {
             "name": "P3",
-            "tokens": 2
+            "tokens": 0
         },
         {
             "name": "P4",
@@ -50,8 +50,7 @@
         {
             "from": "P3",
             "to": "T3",
-            "type": "input",
-            "weight": 1
+            "type": "inhibitory"
         },
         {
             "from": "P4",
