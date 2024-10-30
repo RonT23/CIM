@@ -1,52 +1,64 @@
+
 import json
 import networkx as nx
 import matplotlib.pyplot as plt
 
-def visualize_petri_net(log_file):
+def visualize_petri_net(structure_file, log_file):
+
+    # Load the Petri net structure descritpion file
+    with open(structure_file, "r") as file:
+        petri_net_data = json.load(file)
+    
+    # Load the simulation results file
     with open(log_file, "r") as file:
         simulation_log = json.load(file)
     
-    # Initialize graph
     G = nx.DiGraph()
     positions = {}
     
-    # Add nodes for places and transitions
-    places = [p for p in simulation_log[0].keys()]
-    for idx, place in enumerate(places):
-        G.add_node(place, type="place", tokens=simulation_log[0][place])
-        positions[place] = (0, -idx * 2)  # Arrange places vertically
+    # Places and transitions are nodes arragned vertically
+    for idx, place in enumerate(petri_net_data["places"]):
+        G.add_node(place["name"], type="place", tokens=place["tokens"])
+        positions[place["name"]] = (0, -idx * 2) 
 
-    transitions = ["T1", "T2"]  # Known transitions; adapt if needed
-    for idx, transition in enumerate(transitions):
+    for idx, transition in enumerate(petri_net_data["transitions"]):
         G.add_node(transition, type="transition")
-        positions[transition] = (2, -idx * 2)  # Arrange transitions vertically
+        positions[transition] = (2, -idx * 2)
 
-    # Define the arcs manually (or dynamically if using an extended structure)
-    G.add_edge("P1", "T1")
-    G.add_edge("T1", "P2")
-    G.add_edge("P2", "T2")
-    G.add_edge("T2", "P3")
-    G.add_edge("T2", "P4")
+    # Places and transitions have edges described by arcs
+    for arc in petri_net_data["arcs"]:
+        G.add_edge(arc["from"], arc["to"])
 
-    # Visualize each step in simulation
+    # Visualize the simulation
     for step, state in enumerate(simulation_log):
-        plt.clf()  # Clear previous step
-        token_labels = {node: f"{node}\n{state[node]} tokens" if node in state else node
-                        for node in G.nodes()}
+        # Clear previous step
+        plt.clf() 
         
-        # Draw places and transitions
+        # Check if in this step there is a recorded deadlock
+        is_deadlock = "deadlock" in state and state["deadlock"] == True
+        
+        # Update token labels
+        token_labels = {node: f"{node}\n{state.get(node, 0)} tokens" for node in G.nodes()}
+        
+        # Draw nodes
         place_nodes = [n for n, attr in G.nodes(data=True) if attr["type"] == "place"]
         transition_nodes = [n for n, attr in G.nodes(data=True) if attr["type"] == "transition"]
         
-        nx.draw_networkx_nodes(G, pos=positions, nodelist=place_nodes, node_color="skyblue", node_size=1500)
-        nx.draw_networkx_nodes(G, pos=positions, nodelist=transition_nodes, node_color="salmon", node_size=1000)
+        nx.draw_networkx_nodes(G, pos=positions, nodelist=place_nodes, node_color="blue", node_size=1500)
+        nx.draw_networkx_nodes(G, pos=positions, nodelist=transition_nodes, node_color="red", node_size=1000)
         nx.draw_networkx_labels(G, pos=positions, labels=token_labels, font_size=10)
         nx.draw_networkx_edges(G, pos=positions, edgelist=G.edges(), arrows=True)
-        
-        plt.title(f"Petri Net Simulation Step {step + 1}")
-        plt.pause(1)  # Pause to view each step (adjust as needed)
 
+        if is_deadlock:
+            plt.title(f"Deadlock Detected at Step {step + 1}")
+        else:
+            plt.title(f"Network State at Step {step + 1}")
+        
+        # Hold on for better visualization
+        plt.pause(1)
+
+    
     plt.show()
 
-# Example call to visualize
-visualize_petri_net("simulation_log.json")
+if __name__ == "__main__":
+    visualize_petri_net("structure.json", "simulation_log.json")
