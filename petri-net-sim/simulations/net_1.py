@@ -5,7 +5,7 @@
     Date        : 30/10/2024
     Requires    : petri_net_sim
 '''
-from petri_net_sim_package.petri_net_sim import *
+from petri_net_sim_package.petri_net_sim_package.petri_net_sim import *
 
 if __name__ == "__main__" :
     

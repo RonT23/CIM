@@ -49,7 +49,7 @@ The only requirement is Python version 3.5 or higher. Other than that, there are
 
 ## Create Virtual Environment
 
-To keep this package separate from other Python packages on your system, it is best practice to use a virtual environment. To create and activate a virtual environment, follow these steps inside the project folder.
+To keep this package separate from other Python packages on your system, it is best practice to use a virtual environment. To create and activate a virtual environment run:
 
 ```bash
    $ python3 -m venv petri_net_env
