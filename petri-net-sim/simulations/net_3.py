@@ -1,6 +1,6 @@
 '''
     Project     : Petri Network Simulator - MSc Autonomous Control Systems and Robotics - NTUA Fall 2024-2025 - CIM ex. 1
-    Description : Simulation script for the given network 3 as defined in the handout PDF file.
+    Description : Simulation script for the given network 3 as defined in the requirements PDF file.
     Designer    : Ronaldo Tsela
     Date        : 30/10/2024
     Requires    : petri_net_sim

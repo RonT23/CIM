@@ -43,9 +43,9 @@ The Petri Net simulator is a simple Python package for simulating Petri networks
 
 ## Prerequisites
 
-This package is written in Python, making it largely hardware- and operating system-agnostic, so it should operate similarly across different systems. However, as development and testing were conducted in a Linux-based environment, it is recommend using a Linux environment to run the simulator. Most commands should also work on Windows via Windows Subsystem for Linux (WSL), or by using a virtual machine on a Windows host running one of the many Linux distros.
+This package is written in Python, making it largely hardware- and operating system-agnostic, so it should operate similarly across different systems. However, as development and testing were conducted in a Linux-based environment, it is recommend using a Linux environment to run the simulator. Most commands should also work on Windows via Windows Subsystem for Linux (WSL), or by using a virtual machine on a Windows host running one of the many Linux distros available.
 
-The only requirement is Python version 3.5 or higher. Other than that, there are no additional dependencies to run the simulator.
+The only requirement is Python version 3.5 or higher. Other than that, there are no additional dependencies to run the simulator. The required packages are installed if they are not already istalled through the package itself.
 
 ## Create Virtual Environment
 
@@ -98,11 +98,11 @@ To run the newly configured simulation, simply execute the program as follows:
     $ python3 run.py
 ```
 
-In folder `./simulations/` you will find two ready-to-execute scripts that model two Petri networks based on the requirements of the task.
+In folder `./simulations/` you will find three ready-to-execute scripts that model three Petri networks defined in the requirements of this task. 
 
 ### Simulation Output
 
-The simulator upon execution outputs two JSON files: one describes the network's structure, while the other contains the simulation results. These files are then parsed as input to the visualization script, which produces a graphical representation of the changes that occurred in the Petri network throughout all the simulation steps. Each step is graphically visualized with a delay in between steps set to 1 second. Also the content of the simulation results JSON file is extracted into a more intuitive and easy to work with TXT file. You can find such files in `./results/` folder.  
+The simulator upon execution outputs two JSON files: one describes the network's structure, while the other contains the simulation results. These files are then parsed as input to the visualization script, which produces a graphical representation of the changes that occurred in the Petri network throughout all the simulation steps. Each step is graphically visualized with a timestep in between steps set to 1 second. Also the content of the simulation results JSON file is extracted into a more intuitive and easy to work with TXT file. You can find such files in `./results/` folder produced from the three simulation files respectivelly.  
 
 ## Documentation
 

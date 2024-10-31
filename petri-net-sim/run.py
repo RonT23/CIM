@@ -1,3 +1,10 @@
+'''
+    Project     : Petri Network Simulator - MSc Autonomous Control Systems and Robotics - NTUA Fall 2024-2025 - CIM ex. 1
+    Description : Template simulation script for creating and simulating a simple Petri network using the petri_net_sim package created.
+    Designer    : Ronaldo Tsela
+    Date        : 30/10/2024
+    Requires    : petri_net_sim
+'''
 from petri_net_sim_package.petri_net_sim import *
 
 if __name__ == "__main__" :
@@ -39,7 +46,8 @@ if __name__ == "__main__" :
 
     net.export_structure("structure.json")
     net.simulate(target_transition_name=target_transition_name, total_transition_activations=total_transition_activations)
-   
     json_to_txt("simulation_log.json", "simulation_results.txt")
+    print_txt_to_console("simulation_log.txt")
     visualize_petri_net("structure.json", "simulation_log.json")
+    
 #### End of program
