@@ -1,5 +1,3 @@
-#petri_net_sim_package/petri_net_sim.py
-
 """
     Project     : Petri Network Simulator - MSc Autonomous Control Systems and Robotics - NTUA Fall 2024-2025 - CIM ex. 1
     Description : A simple implementation of a Petri Net simulator including inhibitory arcs and visualization of graph.
@@ -16,7 +14,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 
-"""
+'''
     This class creates and manages places in a Petri net, where each place
     can hold a non-negative number of tokens.
 
@@ -25,7 +23,7 @@ import matplotlib.pyplot as plt
         tokens_count (int): The current number of tokens in the place.
 
     Methods:
-        __init__(name: str, tokens_count: int = 0):
+        __init__(name: str, tokens_count: int):
             Initializes a new Place instance with a specified name and initial token count.
             By default the token count is set to zero.
 
@@ -34,8 +32,7 @@ import matplotlib.pyplot as plt
 
         remove_tokens(tokens_count: int):
             Removes a specified number of tokens from this place.
-"""
-
+'''
 class Place:
     def __init__(self, name, tokens_count=0):
         self.name = name
@@ -53,7 +50,7 @@ class Place:
     connect places through arcs and control the flow of tokens based on firing 
     conditions. In a classical Petri net, transitions are connected to places 
     through input and output arcs only. Here inhibitory arcs are also 
-    included.
+    modeled.
 
     Attributes:
         name (str): The name of the transition.
@@ -65,19 +62,19 @@ class Place:
         __init__(name: str):
             Initializes a Transition instance with a given name.
 
-        add_input_arc(place, weight=1):
+        add_input_arc(place, weight):
             Adds an input arc to this transition from a specified place.
             
             Args:
                 place: The place that serves as input to this transition.
-                weight (int): The weight of the arc. Default is 1.
+                weight (int): The weight of the arc. By default is 1.
 
-        add_output_arc(place, weight=1):
+        add_output_arc(place, weight):
             Adds an output arc to this transition to a specified place.
             
             Args:
                 place: The place that serves as output for this transition.
-                weight (int): The weight of the arc. Default is 1.
+                weight (int): The weight of the arc. By default is 1.
 
         add_inhibitory_arc(place):
             Adds an inhibitory arc that controls this transition by preventing it 
@@ -87,7 +84,7 @@ class Place:
                 place: The place that inhibits this transition.
 
         is_enabled() -> bool:
-            Checks if this transition can fire based on its input and inhibitory arcs.
+            Checks if this transition can fire based on its inputs and inhibitory arcs.
 
             Returns:
                 bool: True if the transition is enabled and can fire; False otherwise.
@@ -146,36 +143,40 @@ class Transition:
     This class creates and manages a Petri net, allowing the addition of places,
     transitions, and arcs, and simulating the Petri net behavior over a series of 
     iterations defined by the number of total transitions occured on a target transition. 
+    The maximum number of places and transitions set by default is 20.
 
     Methods:
-        add_place(name: str, tokens: int = 0):
-            Adds a new place to the Petri net.
+        __init__(name: str, max_place_count: int, max_transition_count: int):
+            Initializes a new Petri network instance with a specified limit on place and transition number
+
+        add_place(name: str, tokens: int):
+            Adds a new place to the Petri network if it does not exceed the defined limit.
 
             Args:
                 name (str): The name of the place to add.
                 tokens (int): The initial number of tokens in the place. Defaults to 0.
 
         add_transition(name: str):
-            Adds a new transition to the Petri net.
+            Adds a new transition to the Petri net if it does not exceed the defined limit.
 
             Args:
                 name (str): The name of the transition to add.
 
-        add_input_arc(transition_name: str, place_name: str, weight: int = 1):
+        add_input_arc(transition_name: str, place_name: str, weight: int):
             Adds an input arc from a place to a transition.
 
             Args:
                 transition_name (str): The name of the transition receiving input from this arc.
                 place_name (str): The name of the place that serves as input.
-                weight (int): The weight of the arc. Defaults to 1.
+                weight (int): The weight of the arc. By default is 1.
 
-        add_output_arc(transition_name: str, place_name: str, weight: int = 1):
+        add_output_arc(transition_name: str, place_name: str, weight: int):
             Adds an output arc from a transition to a place.
 
             Args:
-                transition_name (str): The name of the transition providing output through this arc.
+                transition_name (str): The name of the transition producing output through this arc.
                 place_name (str): The name of the place that receives output from this arc.
-                weight (int): The weight of the arc. Defaults to 1.
+                weight (int): The weight of the arc. By defaults is 1.
 
         add_inhibitory_arc(transition_name: str, place_name: str):
             Adds an inhibitory arc from a place to a transition.
@@ -185,30 +186,46 @@ class Transition:
                 place_name (str): The name of the place that inhibits this transition.
         
         export_structure(file_name: str):
-            Exports the structure of the Petri net to a JSON file for external visualization.
+            Exports the structure of the Petri net to a JSON file for external visualization and processing
+            of the network structure.
 
             Args:
-                file_name (str): The name of the file to export the structure to. Default is 'structure.json'.
+                file_name (str): The name of the file to export the structure to. By default is 'structure.json'.
             
         simulate(target_transition_name: str, total_transition_activations: int, log_file: str):
-            Simulates the Petri net until a specified transition has fired a set number of times.
+            Simulates the Petri net until a specified transition has fired a given number of times and records the
+            simulation results (Marking, activations and deadlock occurances)
 
             Args:
                 target_transition_name (str): The name of the transition to monitor for the termination condition.
                 total_transition_activations (int): The total number of activations of the target transition required to stop the simulation.
-                log_file (str): The file path for saving the simulation log. Default value is "simulation_log.json".
+                log_file (str): The file path for saving the simulation log. By default is "simulation_log.json".
 '''
 class PetriNet:
-    def __init__(self):
+    def __init__(self, max_place_count=20, max_transition_count=20):
         self.places = {}
         self.transitions = {}
         self.arcs = []
+        
+        self.place_count = 0
+        self.transition_count = 0
+        
+        self.max_place_count = max_place_count
+        self.max_transition_count = max_transition_count
 
     def add_place(self, name, tokens=0):
-        self.places[name] = Place(name, tokens)
+        if self.place_count >= self.max_place_count :
+            print("[ERROR] Reached the place count limit! Place node cannot be added to the network.")
+        else:
+            self.place_count += 1
+            self.places[name] = Place(name, tokens)
 
     def add_transition(self, name):
-        self.transitions[name] = Transition(name)
+        if self.transition_count >= self.max_transition_count :
+            print("[ERROR] Reached the transition count limit! Transition node cannot be added to the network.")
+        else:
+            self.transition_count += 1    
+            self.transitions[name] = Transition(name)
 
     def add_input_arc(self, transition_name, place_name, weight=1):
         transition = self.transitions[transition_name]
@@ -230,7 +247,7 @@ class PetriNet:
 
     def export_structure(self, file_name="structure.json"):
         
-        # Delete the old versions of the structure configuration file
+        # Delete the old versions of the structure configuration file if it exists
         try:
             os.remove(file_name)
         except:
@@ -245,8 +262,6 @@ class PetriNet:
         with open(file_name, "w") as file:
             json.dump(petri_net_struct_data, file, indent=4)
 
-        print(f"Petri net structure exported to {file_name}")
-
     def simulate(self, target_transition_name, total_transition_activations, log_file="simulation_log.json"):
         
         target_transition = self.transitions[target_transition_name]
@@ -254,7 +269,7 @@ class PetriNet:
         steps = 0
         log = []
 
-        # Delete the old versions of the lof file
+        # Delete the old versions of the lof file if it already exists
         try:
             os.remove(log_file)
         except:
@@ -263,7 +278,7 @@ class PetriNet:
         while target_activation_count < total_transition_activations:
             
             enabled_transitions = [t for t in self.transitions.values() if t.is_enabled()]
-
+            
             # Check for deadlocks
             if not enabled_transitions:
                 deadlock_state = {place.name: place.tokens for place in self.places.values()}
@@ -282,33 +297,32 @@ class PetriNet:
                     target_activation_count += 1
                 
                 step_state = {place.name: place.tokens for place in self.places.values()}
-                step_state["Target_Fired"] = target_activation_count
+                step_state["Target_Fired_Count"] = target_activation_count
+                step_state["Activated_Transition"] = chosen_transition.name
                 log.append(step_state)
-           
+            
+            print(f"[INFO] step {steps} \ Target transition activations: {target_activation_count}/{total_transition_activations}")
+
         # Create the output file and export the simualtion results
         with open(log_file, "w") as file:
             json.dump(log, file)
 
-        print(f"Target transition activations: {target_activation_count}/{total_transition_activations}")
-
         if target_activation_count < total_transition_activations:
-            print(f"Simulation ended due to deadlock after {steps} steps.")
+            print(f"[ERROR] Simulation ended due to deadlock after {steps} steps.")
         else:
-            print(f"Simulation completed successfully in {steps} steps.")
+            print(f"[STATUS] Simulation completed successfully in {steps} steps.")
 
-
-
-"""
+'''
     This function visualizes the structure and simulation results of a Petri network exported from the simulator.
-    The visualization continues until all steps in the simulation log have been displayed with a delay of 1 second per step.
+    The visualization continues until all steps in the simulation log have been displayed with a timestep of 1 second per step.
     
     Args:
         structure_file (str): The path to a JSON file containing the description of the Petri net structure as exported from the simulator.
                               This file contains the places, the transitions, and the arcs used to connect the formers.
         
-        simulation_log_file (str): The path to a JSON file containing the simulation log, which records the state of 
-                        the Petri net at each step of the simulation.   
-"""
+        simulation_log_file (str): The path to a JSON file containing the simulation log filr, which records the state of 
+                                    the Petri net at each step of the simulation.   
+'''
 def visualize_petri_net(structure_file, simulation_log_file):
 
     # Load the Petri net structure descritpion file
@@ -336,6 +350,8 @@ def visualize_petri_net(structure_file, simulation_log_file):
     for arc in petri_net_data["arcs"]:
         G.add_edge(arc["from"], arc["to"], arc_type=arc["type"])
         arc_labels[(arc["from"], arc["to"])] = arc.get("weight", 1)
+
+    total_target_activations = 0
 
     for step, state in enumerate(simulation_log):
 
@@ -367,9 +383,9 @@ def visualize_petri_net(structure_file, simulation_log_file):
         is_deadlock = "deadlock" in state and state["deadlock"] == True
         
         try:
-            total_target_activations = state["Target_Fired"]
+            total_target_activations = state["Target_Fired_Count"]
         except:
-            total_target_activations = 0
+            pass 
 
         if is_deadlock:
             plt.title(f"Deadlock Detected at Step {step + 1}\nTarget Fired {total_target_activations} Times")
@@ -385,10 +401,10 @@ def visualize_petri_net(structure_file, simulation_log_file):
     plt.show()
 
 
-"""
+'''
     This function reads a JSON file containing the state of a Petri network simulation and exports the relevant data
-    into a comma-separated TXT file for easier reading. It handles both normal entries and deadlock scenarios,
-    ensuring that only the relevant data (Marking and Target Transition Fired Times) is retained in the output file.
+    into a comma-separated TXT file for easier reading. It ensures that the 'Target_Fired' field is placed at the end of each row
+    in the output file, whether or not a deadlock entry is encountered.
     
     Args:
         json_file (str): The path to the input JSON file containing the simulation data, which may include both 
@@ -396,7 +412,7 @@ def visualize_petri_net(structure_file, simulation_log_file):
                          
         txt_file (str): The path to the output TXT file where the processed simulation data will be saved. 
                         The output will be in a comma-separated format for easier readability.
-"""
+'''
 def json_to_txt(json_file, txt_file):
     # Read the JSON file
     with open(json_file, 'r') as file:
@@ -404,29 +420,34 @@ def json_to_txt(json_file, txt_file):
 
     # Open the TXT file for writing
     with open(txt_file, 'w') as file:
-        # Define the keys to keep
-        keys_to_keep = [f'P{i}' for i in range(1, 5)] + ['Target_Fired']
-
-        # Check if the data is not empty
         if data:
-            # Write the header
-            header = ', '.join(key for key in keys_to_keep if key in data[0])
-            file.write(header + '\n')
+            # Determine the header, ensuring 'Target_Fired' is last
+            header = list(data[0].keys())
+            if 'Target_Fired' in header:
+                header.remove('Target_Fired')
+                header.append('Target_Fired')
+            file.write(', '.join(header) + '\n')
 
             for entry in data:
-                
-                # If it's a deadlock entry dont print the message exported in the JSON
-                if 'step' in entry:
-                    step = entry.get('step', None)
-                    deadlock = entry.get('deadlock', None)
+                # Handle deadlock entry separately if present
+                if 'deadlock' in entry:
                     state = entry.get('state', {})
-                    target_fired = state.get('Target_Fired', None)
-                    
-                    # New row for the deadlock scenario
-                    row = ', '.join(str(state.get(key, 0)) for key in keys_to_keep[:-1])
-                    row += f', {target_fired}'
-                    file.write(row + '\n')
+                    # Move 'Target_Fired' to the end for deadlock states
+                    row = ', '.join(str(state.get(key, 0)) for key in header if key in state)
                 else:
-                    # New row for regular entries
-                    row = ', '.join(str(entry.get(key, 0)) for key in keys_to_keep)
-                    file.write(row + '\n')
+                    # Regular entries, with 'Target_Fired' at the end
+                    row = ', '.join(str(entry.get(key, 0)) for key in header)
+                
+                file.write(row + '\n')
+
+'''
+    This function reads a comma-separated TXT file containing the processed Petri network simulation data 
+    and prints the data line-by-line to the console for easy viewing.
+    
+    Args:
+        txt_file (str): The path to the input TXT file containing the simulation data in comma-separated format.
+'''
+def print_txt_to_console(txt_file):
+    with open(txt_file, 'r') as file:
+        for line in file:
+            print(line.strip())

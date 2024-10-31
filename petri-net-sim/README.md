@@ -4,28 +4,42 @@
 
 ```bash
     petri-net-sim/
+        
         \__ petri_net_sim_package/
+                
                 \__ petri_net_sim_package/
                         \__ __init__.py
                         \__ petri_net_sim.py
+                
                 \__ README.md
                 \__ setup.py
+
+        \__ results/
+                \__ net_1_simulation_log.json
+                \__ net_1_simulation_log.txt
+                \__ net_1_structure.json
+                \__ net_2_simulation_log.json
+                \__ net_2_simulation_log.txt
+                \__ net_2_structure.json
+                \__ net_3_simulation_log.json
+                \__ net_3_simulation_log.txt
+                \__ net_3_structure.json
+                
         \__ simulations/
                 \__ net_1.py
                 \__ net_2.py
-        \__ results/
-                \__ net_1_results.txt
-                \__ net_2_results.txt
+                \__ net_3.py
+        
         \__ README.md
         \__ run.py
-        \__ docs
+        \__ docs/
                 \__ petri_net_sim_report.pdf
 
 ```
 
 ## Description
 
-The Petri Net simulator is a simple Python package for simulating Petri networks. This simulator can also model inhibitor arcs, a feature not defined in classical Petri nets. Additionally, the package includes a module for visualizing the constructed graph. Results exported from the simulator are easy to integrate with other programs, as they use JSON format, which widely adopted also for graph descriptions and simulation results.
+The Petri Net simulator is a simple Python package for simulating Petri networks. This simulator can also model inhibitor arcs, a feature not defined in classical Petri nets. Additionally, the package includes a module for visualizing the constructed graph. Results exported from the simulator are easy to integrate with other programs, as they use JSON format, which widely adopted also for graph descriptions and simulation results as well as simple comma separated TXT files.
 
 ## Prerequisites
 

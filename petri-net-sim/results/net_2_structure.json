@@ -1,0 +1,357 @@
+{
+    "places": [
+        {
+            "name": "p1",
+            "tokens": 1
+        },
+        {
+            "name": "p2",
+            "tokens": 0
+        },
+        {
+            "name": "p3",
+            "tokens": 0
+        },
+        {
+            "name": "p4",
+            "tokens": 0
+        },
+        {
+            "name": "p5",
+            "tokens": 0
+        },
+        {
+            "name": "pd",
+            "tokens": 0
+        },
+        {
+            "name": "IN",
+            "tokens": 1
+        },
+        {
+            "name": "^IN",
+            "tokens": 0
+        },
+        {
+            "name": "WIP",
+            "tokens": 0
+        },
+        {
+            "name": "^WIP",
+            "tokens": 1
+        },
+        {
+            "name": "p11",
+            "tokens": 1
+        },
+        {
+            "name": "p12",
+            "tokens": 0
+        },
+        {
+            "name": "p13",
+            "tokens": 0
+        },
+        {
+            "name": "p14",
+            "tokens": 0
+        },
+        {
+            "name": "p15",
+            "tokens": 0
+        },
+        {
+            "name": "FP",
+            "tokens": 0
+        },
+        {
+            "name": "^FP",
+            "tokens": 5
+        },
+        {
+            "name": "R",
+            "tokens": 1
+        }
+    ],
+    "transitions": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "td",
+        "t6",
+        "t11",
+        "t12",
+        "t13",
+        "t14",
+        "t15",
+        "t16"
+    ],
+    "arcs": [
+        {
+            "from": "p1",
+            "to": "t1",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "IN",
+            "to": "t1",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "R",
+            "to": "t1",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "t1",
+            "to": "p2",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "t1",
+            "to": "^IN",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "p2",
+            "to": "t2",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "t2",
+            "to": "p3",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "t1",
+            "to": "R",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "p3",
+            "to": "t3",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "t3",
+            "to": "p4",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "p4",
+            "to": "t4",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "R",
+            "to": "t4",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "^WIP",
+            "to": "t4",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "t4",
+            "to": "p5",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "t4",
+            "to": "pd",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "pd",
+            "to": "td",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "td",
+            "to": "^WIP",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "p5",
+            "to": "t5",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "^WIP",
+            "to": "t5",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "t5",
+            "to": "p1",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "t5",
+            "to": "WIP",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "t5",
+            "to": "R",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "^IN",
+            "to": "t6",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "t6",
+            "to": "IN",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "p11",
+            "to": "t11",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "WIP",
+            "to": "t11",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "R",
+            "to": "t11",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "t11",
+            "to": "p12",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "t11",
+            "to": "^WIP",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "p12",
+            "to": "t12",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "t12",
+            "to": "p13",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "t12",
+            "to": "R",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "p13",
+            "to": "t13",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "t13",
+            "to": "p14",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "p14",
+            "to": "t14",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "R",
+            "to": "t14",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "t14",
+            "to": "p15",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "p15",
+            "to": "t15",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "^FP",
+            "to": "t15",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "t15",
+            "to": "FP",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "t15",
+            "to": "R",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "t15",
+            "to": "p11",
+            "type": "output",
+            "weight": 1
+        },
+        {
+            "from": "FP",
+            "to": "t16",
+            "type": "input",
+            "weight": 1
+        },
+        {
+            "from": "t16",
+            "to": "^FP",
+            "type": "output",
+            "weight": 1
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 '''
     Project     : Petri Network Simulator - MSc Autonomous Control Systems and Robotics - NTUA Fall 2024-2025 - CIM ex. 1
-    Description : Simulation script for the given network 2 as defined in the handout PDF file.
+    Description : Simulation script for the given network 3 as defined in the handout PDF file.
     Designer    : Ronaldo Tsela
     Date        : 30/10/2024
     Requires    : petri_net_sim
@@ -18,7 +18,6 @@ if __name__ == "__main__" :
     net.add_place("p3",   tokens=0)
     net.add_place("p4",   tokens=0)
     net.add_place("p5",   tokens=0)
-    net.add_place("pd",   tokens=0)
     net.add_place("IN",   tokens=1)
     net.add_place("^IN",  tokens=0)
     net.add_place("WIP",  tokens=0)
@@ -30,14 +29,13 @@ if __name__ == "__main__" :
     net.add_place("p15",  tokens=0)
     net.add_place("FP",   tokens=0)
     net.add_place("^FP",  tokens=5)
-    net.add_place("R",    tokens=1)
+    net.add_place("R",   tokens=1)
 
     net.add_transition("t1")
     net.add_transition("t2")
     net.add_transition("t3")
     net.add_transition("t4")
     net.add_transition("t5")
-    net.add_transition("td")
     net.add_transition("t6")
     net.add_transition("t11")
     net.add_transition("t12")
@@ -65,13 +63,7 @@ if __name__ == "__main__" :
     # transition t4
     net.add_input_arc("t4", "p4", weight=1)
     net.add_input_arc("t4", "R", weight=1)
-    net.add_input_arc("t4", "^WIP", weight=1)
     net.add_output_arc("t4", "p5", weight=1)
-    net.add_output_arc("t4", "pd", weight=1)
-    
-    # transition td
-    net.add_input_arc("td", "pd", weight=1)
-    net.add_output_arc("td", "^WIP", weight=1)
 
     # transition t5
     net.add_input_arc("t5", "p5", weight=1)
@@ -85,6 +77,7 @@ if __name__ == "__main__" :
     net.add_output_arc("t6", "IN", weight=1)
 
     # transition t11
+    net.add_inhibitory_arc("t11", "p1")
     net.add_input_arc("t11", "p11", weight=1)
     net.add_input_arc("t11", "WIP", weight=1)
     net.add_input_arc("t11", "R", weight=1)
@@ -99,7 +92,7 @@ if __name__ == "__main__" :
     # transition t13
     net.add_input_arc("t13", "p13", weight=1)
     net.add_output_arc("t13", "p14", weight=1)
-    
+
     # transition t14
     net.add_input_arc("t14", "p14", weight=1)
     net.add_input_arc("t14", "R", weight=1)
@@ -121,12 +114,12 @@ if __name__ == "__main__" :
 
 ##### End of network definitions     ####
 
-##### Don't touch these
+##### Don't change these
 
-    net.export_structure("../results/net_2_structure.json")
-    net.simulate(target_transition_name=target_transition_name, total_transition_activations=total_transition_activations, log_file="../results/net_2_simulation_log.json")
-    json_to_txt("../results/net_2_simulation_log.json", "../results/net_2_simulation_log.txt")
-    print_txt_to_console("../results/net_2_simulation_log.txt")
-    visualize_petri_net("../results/net_2_structure.json", "../results/net_2_simulation_log.json")
+    net.export_structure("../results/net_3_structure.json")
+    net.simulate(target_transition_name=target_transition_name, total_transition_activations=total_transition_activations, log_file="../results/net_3_simulation_log.json")
+    json_to_txt("../results/net_3_simulation_log.json", "../results/net_3_simulation_log.txt")
+    print_txt_to_console("../results/net_3_simulation_log.txt")
+    visualize_petri_net("../results/net_3_structure.json", "../results/net_3_simulation_log.json")
     
 #### End of program
