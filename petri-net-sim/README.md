@@ -100,7 +100,7 @@ To run the newly configured simulation, simply execute the program as follows:
 
 In folder `./simulations/` you will find three ready-to-execute scripts that model three Petri networks defined in the requirements of this task. 
 
-### Simulation Output
+## Simulation Output
 
 The simulator upon execution outputs two JSON files: one describes the network's structure, while the other contains the simulation results. These files are then parsed as input to the visualization script, which produces a graphical representation of the changes that occurred in the Petri network throughout all the simulation steps. Each step is graphically visualized with a timestep in between steps set to 1 second. Also the content of the simulation results JSON file is extracted into a more intuitive and easy to work with TXT file. You can find such files in `./results/` folder produced from the three simulation files respectivelly.  
 
