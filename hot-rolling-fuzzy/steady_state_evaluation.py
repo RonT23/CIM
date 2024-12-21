@@ -2,7 +2,7 @@
     Project     : Hot Rolling Fuzzy Control System - MSc Autonomous Control Systems and Robotics - NTUA Fall 2024-2025 - CIM ex. 2
     Description : This script evaluates the implementation of the fuzzy algorith as described in the paper "Fuzzy control algorithm for the 
                   prediction of tension variations in hot rolling" - Jong-Yeob Jung, Yong-Taek Im, using the provided (in paper) evaluation 
-                  and testing data samples.
+                  and testing data samples for the steady-state operation.
     Designer    : Ronaldo Tsela
     Date        : 20/12/2024
     Requires    : hot_rolling_fuzzy, matplotlib
@@ -35,7 +35,11 @@ if __name__ == "__main__":
     for i in range(len(h_in_test)):
 
         # compute the fuzzy results
-        d_sigma_f, d_sigma_b = ctrl.compute(h_in_test[i], C_test[i])
+        ctrl.compute_steady_state(h_in_test[i], C_test[i])
+
+        # get the computed values
+        d_sigma_f = ctrl.get_d_sigma_f()
+        d_sigma_b = ctrl.get_d_sigma_b()
 
         # append results
         d_sigma_f_predicted.append(d_sigma_f)

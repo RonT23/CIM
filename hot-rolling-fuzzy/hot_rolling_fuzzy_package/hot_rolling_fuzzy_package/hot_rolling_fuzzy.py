@@ -26,24 +26,21 @@ import math
         h_in_mf (dict): [key = linguistic variable, value = membership list] Implements a triangular membership function for the entry thickness. Maps linguistic variables to memberships per level.
         C_mf (dict): [key = linguistic variable, value = membership list] Implements a triangular membership function for the carbon equivalent. Maps linguistic variables to memberships per level.
         rules (list): A list of rules. Each entry is a dictionary representing a rule. 
-                    Each rule is defined as {if: X1, and: X2, then_1: Y1, then_2: Y2}, where X1 and X2 are the input fuzzy variables, and Y1 and Y2 are the outputs.
-
+                     Each rule is defined as {if: X1, and: X2, then_1: Y1, then_2: Y2}, where X1 and X2 are the input fuzzy variables, and Y1 and Y2 are the outputs.
+        d_sigma_b (float) : The variation in back tension variable
+        d_sigma_f (float) : The variation in front tension variable
+     
     Methods:
         __init__():
-            Initializes a new HotRollingFuzzyControl instance with a specified input arithmetic accuracy.
-            By default, the accuracy is set to 0.01.
+            Initializes a new HotRollingFuzzyControl instance.
 
-        compute(h_in: float, C_perc: float):
-            Predicts the front and back tension variations using fuzzy logic.
+        compute_steady_state(h_in: float, C_perc: float):
+            Predicts the front and back tension variations using fuzzy logic for the steady state operation for determined conditions.
 
             Args:
                 h_in (float): The crisp entry thickness input.
                 C_perc (float): The crisp carbon equivalent input.
-
-            Returns:
-                (float, float): A tuple of two floats representing the computed variations 
-                    in front tension (Delta_sigma_f) and back tension (Delta_sigma_b).
-
+  
         set_h_in_min_val(val: float):
             Sets the minimum limit for the entry thickness.
 
@@ -68,7 +65,18 @@ import math
             Args:
                 val (float): The maximum permissible value for the carbon equivalent.
 
-              
+       get_d_sigma_f():
+            Reads the variation inn front tension value.
+
+            Returns: 
+                (float) : The d_sigma_f value.
+        
+        get_d_sigma_b():
+            Reads the variation in back tension value.
+
+            Returns:
+                (float) : The d_sigma_b value.
+
         classify(x: (float), R: (dict)): 
             Classifies the input values based on the provided range dictionaries.
             
@@ -80,7 +88,7 @@ import math
                 (str): The class assigned to the input value if it falls within the range, 
                  otherwise returns None.
 
-        fuzzify(x: (float), mf: (dict)):
+        steady_state_fuzzification(x: (float), mf: (dict)):
             Converts the input into a fuzzy set by assigning appropriate membership values
             based on the provided membership function.
 
@@ -91,7 +99,7 @@ import math
             Return: 
                 (list) : A list of dictionaries representing the fuzzified values in the form {linguistic variable: membership value}.
         
-        infere(fuzzy_input: (list)):
+        steady_state_inference(fuzzy_input: (list)):
             Evaluates the fuzzy rules and computes the exact fuzzy output values 
             using Mamdani's minimum method.
 
@@ -101,7 +109,7 @@ import math
             Return:
                 (float, float) : The exact fuzzy output values.
 
-        defuzzify(fuzzy_output: (float)):
+        steady_state_defuzzification(fuzzy_output: (float)):
             Computes the actual crisp value from the exact fuzzy value obtained after inference.
 
             Args:
@@ -224,10 +232,13 @@ class HotRollingFuzzyControl:
     {'if': 'TLB', 'and': 'CML', 'then_1': 'SML', 'then_2': 'SMB'}, # rule 15
     {'if': 'TLB', 'and': 'CMB', 'then_1': 'SLL', 'then_2': 'SSL'}  # rule 16
 ]
-    
+
+        self.d_sigma_b = 0.0
+        self.d_sigma_f = 0.0
+
     ##### Main processing function
 
-    def compute(self, h_in, C_perc):
+    def compute_steady_state(self, h_in, C_perc):
 
         # Check the input
         if (h_in < self.h_in_min_val) or (h_in > self.h_in_max_val) or (C_perc < self.C_perc_min_val) or (C_perc > self.C_perc_max_val):
@@ -239,18 +250,26 @@ class HotRollingFuzzyControl:
         classified_C_perc = int( self.classify(C_perc, self.C_range)  )
 
         # 2. Fuzzyfy the discrete input values and return the membership and linguistic variables 
-        fuzzy_h_in    = self.fuzzify(classified_h_in - 1, self.h_in_mf)
-        fuzzy_C_perc  = self.fuzzify(classified_C_perc - 1, self.C_mf)
+        fuzzy_h_in    = self.steady_state_fuzzification(classified_h_in - 1, self.h_in_mf)
+        fuzzy_C_perc  = self.steady_state_fuzzification(classified_C_perc - 1, self.C_mf)
 
         # 3. Infere the fuzzy system rules
-        fuzzy_d_sigma_f, fuzzy_d_sigma_b = self.infere([fuzzy_h_in, fuzzy_C_perc])
+        fuzzy_d_sigma_f, fuzzy_d_sigma_b = self.steady_state_inference([fuzzy_h_in, fuzzy_C_perc])
 
         # 4. Defuzzify using interpolation scheme to get crisp actual values
-        d_sigma_f = self.defuzzify(fuzzy_d_sigma_f)
-        d_sigma_b = self.defuzzify(fuzzy_d_sigma_b)
+        self.d_sigma_f = self.steady_state_defuzzification(fuzzy_d_sigma_f)
+        self.d_sigma_b = self.steady_state_defuzzification(fuzzy_d_sigma_b)
 
-        return d_sigma_f, d_sigma_b
+    #####
 
+    ##### Result geters
+
+    def get_d_sigma_f(self):
+        return self.d_sigma_f
+    
+    def get_d_sigma_b(self):
+        return self.d_sigma_b
+ 
     #####
 
     ##### Dynamic adjustable input parameters for range limits and accuracy definition
@@ -295,14 +314,14 @@ class HotRollingFuzzyControl:
                 return c
         return None
 
-    def fuzzify(self, x, mf):
+    def steady_state_fuzzification(self, x, mf):
         fuzzified_dict = {}
         for linguistic_variable, membership in mf.items():
             if membership[x] > 0:
                 fuzzified_dict[linguistic_variable] = membership[x]
         return fuzzified_dict
 
-    def infere(self, fuzzy_input):
+    def steady_state_inference(self, fuzzy_input):
 
         yf = 0
         yb = 0
@@ -317,6 +336,8 @@ class HotRollingFuzzyControl:
             g = min(fuzzy_input[0].get(rule["if"], 0), fuzzy_input[1].get(rule["and"], 0))
 
             sum_g  += g
+
+            # apply weight. Actual defuzzification is performed here
             sum_Yf += g * self.d_sigma_singleton.get(rule["then_1"], 0)
             sum_Yb += g * self.d_sigma_singleton.get(rule["then_2"], 0)
 
@@ -326,7 +347,7 @@ class HotRollingFuzzyControl:
 
         return yf, yb
   
-    def defuzzify(self, fuzzy_output):
+    def steady_state_defuzzification(self, fuzzy_output):
         # get the integer part of the class and the next one
         c1 = math.floor(fuzzy_output)
         c2 = math.floor(fuzzy_output) + 1
