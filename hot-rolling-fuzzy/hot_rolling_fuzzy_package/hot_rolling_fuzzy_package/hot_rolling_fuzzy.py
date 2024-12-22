@@ -215,23 +215,23 @@ class HotRollingFuzzyControl:
 
         # Table 8 (Rules: if X1 and X2 then Y1 and Y2)
         self.rules = [
-    {'if': 'TLL', 'and': 'CLB', 'then_1': 'BML', 'then_2': 'BLB'}, # rule 1
-    {'if': 'TLL', 'and': 'CMB', 'then_1': 'BML', 'then_2': 'BMB'}, # rule 2
-    {'if': 'TML', 'and': 'CML', 'then_1': 'SLB', 'then_2': 'BMB'}, # rule 3
-    {'if': 'TML', 'and': 'CMB', 'then_1': 'BLL', 'then_2': 'BLB'}, # rule 4
-    {'if': 'TML', 'and': 'CLB', 'then_1': 'BML', 'then_2': 'BLB'}, # rule 5
-    {'if': 'TSL', 'and': 'CLL', 'then_1': 'SMB', 'then_2': 'BSL'}, # rule 6
-    {'if': 'TSL', 'and': 'CML', 'then_1': 'SSB', 'then_2': 'BML'}, # rule 7
-    {'if': 'TSL', 'and': 'CMB', 'then_1': 'SSB', 'then_2': 'BLL'}, # rule 8
-    {'if': 'TSB', 'and': 'CLL', 'then_1': 'SMB', 'then_2': 'BSL'}, # rule 9
-    {'if': 'TSB', 'and': 'CML', 'then_1': 'SLB', 'then_2': 'BSB'}, # rule 10
-    {'if': 'TSB', 'and': 'CMB', 'then_1': 'SLB', 'then_2': 'BSB'}, # rule 11
-    {'if': 'TMB', 'and': 'CLL', 'then_1': 'SSL', 'then_2': 'BLL'}, # rule 12
-    {'if': 'TMB', 'and': 'CML', 'then_1': 'SML', 'then_2': 'SSB'}, # rule 13
-    {'if': 'TMB', 'and': 'CMB', 'then_1': 'SML', 'then_2': 'SSL'}, # rule 14
-    {'if': 'TLB', 'and': 'CML', 'then_1': 'SML', 'then_2': 'SMB'}, # rule 15
-    {'if': 'TLB', 'and': 'CMB', 'then_1': 'SLL', 'then_2': 'SSL'}  # rule 16
-]
+            {'if': 'TLL', 'and': 'CLB', 'then_1': 'BML', 'then_2': 'BLB'}, # rule 1
+            {'if': 'TLL', 'and': 'CMB', 'then_1': 'BML', 'then_2': 'BMB'}, # rule 2
+            {'if': 'TML', 'and': 'CML', 'then_1': 'SLB', 'then_2': 'BMB'}, # rule 3
+            {'if': 'TML', 'and': 'CMB', 'then_1': 'BLL', 'then_2': 'BLB'}, # rule 4
+            {'if': 'TML', 'and': 'CLB', 'then_1': 'BML', 'then_2': 'BLB'}, # rule 5
+            {'if': 'TSL', 'and': 'CLL', 'then_1': 'SMB', 'then_2': 'BSL'}, # rule 6
+            {'if': 'TSL', 'and': 'CML', 'then_1': 'SSB', 'then_2': 'BML'}, # rule 7
+            {'if': 'TSL', 'and': 'CMB', 'then_1': 'SSB', 'then_2': 'BLL'}, # rule 8
+            {'if': 'TSB', 'and': 'CLL', 'then_1': 'SMB', 'then_2': 'BSL'}, # rule 9
+            {'if': 'TSB', 'and': 'CML', 'then_1': 'SLB', 'then_2': 'BSB'}, # rule 10
+            {'if': 'TSB', 'and': 'CMB', 'then_1': 'SLB', 'then_2': 'BSB'}, # rule 11
+            {'if': 'TMB', 'and': 'CLL', 'then_1': 'SSL', 'then_2': 'BLL'}, # rule 12
+            {'if': 'TMB', 'and': 'CML', 'then_1': 'SML', 'then_2': 'SSB'}, # rule 13
+            {'if': 'TMB', 'and': 'CMB', 'then_1': 'SML', 'then_2': 'SSL'}, # rule 14
+            {'if': 'TLB', 'and': 'CML', 'then_1': 'SML', 'then_2': 'SMB'}, # rule 15
+            {'if': 'TLB', 'and': 'CMB', 'then_1': 'SLL', 'then_2': 'SSL'}  # rule 16
+        ]
 
         self.d_sigma_b = 0.0
         self.d_sigma_f = 0.0
