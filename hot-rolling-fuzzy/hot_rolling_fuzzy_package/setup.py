@@ -9,7 +9,7 @@ setup(
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     packages=find_packages(),
-    #url='https://github.com/RonT23/CIM/hot-rolling-fuzzy/hot_rolling_fuzzy_package
+    url='https://github.com/RonT23/CIM/hot-rolling-fuzzy/hot_rolling_fuzzy_package',
 
     classifiers=[
         'Programming Language :: Python :: 3',
@@ -20,7 +20,7 @@ setup(
     python_requires='>=3.5',
     
     install_requires=[  
-        'numpy', 
-        'math'
+        'numpy',
+        'matplotlib'
     ],
 )
