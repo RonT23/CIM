@@ -39,7 +39,7 @@ Here we attempt to replicate their results with a Python environment.
 
 ## Prerequisites
 
-This package is written in Python, making it largely hardware- and operating system-agnostic, so it should operate similarly across different systems. However, as development and testing were conducted in a Linux-based environment, it is recommend using a Linux environment to run  if poyour custom scripts if possible. Most commands should also work on Windows via Windows Subsystem for Linux (WSL), or by using a virtual machine on a Windows host running one of the many Linux distros available.
+This package is written in Python, making it largely hardware- and operating system-agnostic, so it should operate similarly across different systems. However, as development and testing were conducted in a Linux-based environment, it is recommend using a Linux environment to run if possible. Most commands should also work on Windows via Windows Subsystem for Linux (WSL), or by using a virtual machine on a Windows host running one of the many Linux distros available.
 
 The only requirement is Python version 3.5 or higher. Other than that, there are no additional dependencies to use the package.
 
