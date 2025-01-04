@@ -1,0 +1,67 @@
+{
+    "part_encoding": {
+        "geometry": [
+            "pure_axisymmetric",
+            "axisymmetric_with_prismatic_features",
+            "prismatic",
+            "prismatic_with_axisymmetric_features",
+            "prismatic_with_freeform_features",
+            "freeform",
+            "unconventional"
+        ],
+        "holes": [
+            "none",
+            "normal",
+            "normal_threaded",
+            "normal_functional",
+            "large",
+            "large_threaded",
+            "large_functional"
+        ],
+        "external_threads": [
+            "yes",
+            "no"
+        ],
+        "surface_finish": [
+            "rough",
+            "normal",
+            "good",
+            "very_good"
+        ],
+        "tolerance": [
+            "rough",
+            "normal",
+            "medium",
+            "tight"
+        ],
+        "batch_size": [
+            "prototype",
+            "small",
+            "medium",
+            "large",
+            "mass"
+        ]
+    },
+    "process_list": [
+        "Turning",
+        "Milling",
+        "5-axis Milling",
+        "SLM",
+        "Sand Casting",
+        "High Pressure Die Casting",
+        "Investment Casting",
+        "Turning Secondary",
+        "Milling Secondary",
+        "Hole Milling",
+        "5-axis Milling Secondary",
+        "Thread Milling",
+        "Tapping",
+        "Grinding",
+        "5-axis Grinding",
+        "Superfinishing",
+        "Drilling",
+        "Boring",
+        "Reaming",
+        "Special Finishing"
+    ]
+}
