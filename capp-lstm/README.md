@@ -24,9 +24,9 @@
                 \__ pre-trained-scaler.ipk
 
         \__ results
-                \__ learning_curves_loss.jpg
-                \__ learning_curves_acc.jpg
-                \__ learning_curves_total.jpg
+                \__ learning_curves_loss.png
+                \__ learning_curves_acc.png
+                \__ learning_curves_total.png
 
         \__ evaluate.py
         \__ predict.py
@@ -48,7 +48,11 @@ The core of the predictor is an LSTM network, which is one of the most effective
 
 The system produces four output process chains, each represented by 4 heads, where each head generates 20 time steps (i.e., a sequence of 20 values). The values are integers in the range [0, 20] where values 1 to 20 represent manufacturing processes and value 0 represents "no operation" (used for padding or when fewer than 20 steps are needed). The predicted sequences are then converted into human-readable strings.
 
-In order for this system to work we made an assumption: Each process can appear at most once in a single process chain. Therefore, the maximum number of processes per chain is 20.
+In order for this system to work we made an assumption: Each process can appear at most once in a single process chain. Therefore, the maximum number of processes per chain is 20. In the following Figure the ANN architecture is depicted.
+
+<p align="center" width="25%">
+    <img src="results/model_table.png">
+</p>
 
 In this repository we provide scripts and data for training, validating, testing, and inferring the model. A pre-trained model and scaler are also included.
 
