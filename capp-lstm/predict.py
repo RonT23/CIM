@@ -13,21 +13,23 @@ if __name__ == "__main__":
     capp = CappLSTM()
 
     # Set directories to the input file
-    capp.evaluation_dataset_path = "/home/ronaldo/Desktop/CIM/capp-lstm/data/part_test.json"
-   
+    capp.input_file_path = "/home/ronaldo/Desktop/CIM/capp-lstm/data/part_test.json"
+
     # Set the directory from where the model will be loaded
-    capp.model_path = "/home/ronaldo/Desktop/CIM/metadata/pre-trained-model.keras"
+    capp.model_path = "/home/ronaldo/Desktop/CIM/capp-lstm/metadata/pre-trained-model.keras"
 
     # Set the directory from where the input data scaler will be loaded
-    capp.scaler_path = "/home/ronaldo/Desktop/CIM/metadata/pre-trained-scaler.ipk"
+    capp.scaler_path = "/home/ronaldo/Desktop/CIM/capp-lstm/metadata/pre-trained-scaler.ipk"
     
     # Load the model
     capp.load_model()
     
     # Generate the process chains
     results = capp.predict()
+    
+    print("\n\n")
+    print(f"\nProcess Chain 1: {'->'.join(results[0])}")
+    print(f"\nProcess Chain 2: {'->'.join(results[1])}")
+    print(f"\nProcess Chain 3: {'->'.join(results[2])}")
+    print(f"\nProcess Chain 4: {'->'.join(results[3])}")
 
-    print(f"Process Chain 1: {'->'.join(results[0])}")
-    print(f"Process Chain 2: {'->'.join(results[1])}")
-    print(f"Process Chain 3: {'->'.join(results[2])}")
-    print(f"Process Chain 4: {'->'.join(results[3])}")

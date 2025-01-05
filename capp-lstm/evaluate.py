@@ -16,10 +16,10 @@ if __name__ == "__main__":
     capp.evaluation_dataset_path = "/home/ronaldo/Desktop/CIM/capp-lstm/data/validation.json"
    
     # Set the directory from where the model will be loaded
-    capp.model_path = "/home/ronaldo/Desktop/CIM/metadata/pre-trained-model.keras"
+    capp.model_path = "/home/ronaldo/Desktop/CIM/capp-lstm/metadata/pre-trained-model.keras"
 
     # Set the directory from where the input data scaler will be loaded
-    capp.scaler_path = "/home/ronaldo/Desktop/CIM/metadata/pre-trained-scaler.ipk"
+    capp.scaler_path = "/home/ronaldo/Desktop/CIM/capp-lstm/metadata/pre-trained-scaler.ipk"
     
     # Load the model
     capp.load_model()
@@ -36,19 +36,21 @@ if __name__ == "__main__":
     p3_loss = capp.eval_results[3]
     p4_loss = capp.eval_results[4]
     
-    p1_acc = capp.eval_results[0]
-    p2_acc = capp.eval_results[2]
-    p3_acc = capp.eval_results[3]
-    p4_acc = capp.eval_results[4]
+    p1_acc = capp.eval_results[5]
+    p2_acc = capp.eval_results[6]
+    p3_acc = capp.eval_results[7]
+    p4_acc = capp.eval_results[8]
+
+    print("\n\n")
+    print("Evaluation Loss:")
+    print(f"\tP1 = {p1_loss}")
+    print(f"\tP2 = {p2_loss}")
+    print(f"\tP3 = {p3_loss}")
+    print(f"\tP4 = {p4_loss}")
     
-    print("Evaluation Loss")
-    print(f"P1 = {p1_loss}")
-    print(f"P2 = {p2_loss}")
-    print(f"P3 = {p3_loss}")
-    print(f"P4 = {p4_loss}")
-    
-    print("Evaluation Accuracy")
-    print(f"P1 = {p1_acc}")
-    print(f"P2 = {p2_acc}")
-    print(f"P3 = {p3_acc}")
-    print(f"P4 = {p4_acc}")
+    print("\n\n")
+    print("Evaluation Accuracy:")
+    print(f"\tP1 = {p1_acc}")
+    print(f"\tP2 = {p2_acc}")
+    print(f"\tP3 = {p3_acc}")
+    print(f"\tP4 = {p4_acc}")

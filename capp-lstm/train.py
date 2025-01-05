@@ -13,20 +13,20 @@ if __name__ == "__main__":
     capp = CappLSTM()
 
     # Set directories to the datasets
-    capp.training_dataset_path   = "/home/ronaldo/Deksktop/CIM/capp-lstm/data/training.json"
+    capp.training_dataset_path   = "/home/ronaldo/Desktop/CIM/capp-lstm/data/training.json"
     capp.validation_dataset_path = "/home/ronaldo/Desktop/CIM/capp-lstm/data/validation.json"
     capp.evaluation_dataset_path = "/home/ronaldo/Desktop/CIM/capp-lstm/data/validation.json"
 
     # Set the directory where the model will be stored
-    capp.model_path = "/home/ronaldo/Desktop/CIM/metadata/model.keras"
+    capp.model_path = "/home/ronaldo/Desktop/CIM/capp-lstm/metadata/model.keras"
 
     # Set the directory where the input data scaler will be stored
-    capp.scaler_path = "/home/ronaldo/Desktop/CIM/metadata/scaler.ipk"
+    capp.scaler_path = "/home/ronaldo/Desktop/CIM/capp-lstm/metadata/scaler.ipk"
 
     # Define the model characteristics
-    capp.c_num_LSTM_cells = 128 
+    capp.c_num_LSTM_cells = 64 
     capp.batch_size = 1         
-    capp.training_epochs = 20
+    capp.training_epochs = 10
 
     # Create the model
     capp.create_model()

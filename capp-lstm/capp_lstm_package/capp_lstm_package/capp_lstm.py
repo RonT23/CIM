@@ -481,8 +481,6 @@ class CappLSTM:
       plt.ylabel('Loss')
       plt.legend()
       plt.grid(True)
-
-      plt.show()
       
       # Retrieve the loss and accuracy per output head
       p1_val_loss = history_dict.get('val_p1_loss', None) 
@@ -506,7 +504,6 @@ class CappLSTM:
       plt.ylabel('Value')
       plt.legend()
       plt.grid(True)
-      plt.show()
 
       # Plot the validation accuracy per output head
       plt.figure(figsize=(10, 5))
@@ -519,10 +516,12 @@ class CappLSTM:
       plt.ylabel('Value')
       plt.legend()
       plt.grid(True)
+
       plt.show()
 
-      print('============================')
-      print('\nFinal Validation Accuracy:')
+       
+      print('\n============================')
+      print('Final Validation Accuracy:')
       print(f'P1  : {p1_val_acc[-1]}')
       print(f'P2  : {p2_val_acc[-1]}')
       print(f'P3  : {p3_val_acc[-1]}')

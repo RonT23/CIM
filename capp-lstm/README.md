@@ -112,7 +112,12 @@ The `./results` folder contains the learning curves for the pre-trained model. T
 * `learning_curves_acc.jpg`: Shows the training and validation accuracy per epoch.
 * `learning_curves_total.jpg`: Displays the overall performance summary in means of accuracy and loss.
 
-The total accuracy for each of the model’s output heads is computed as the average accuracy across all four heads in the final training epoch. This is equal to ...
+The total accuracy for each of the model’s output heads is computed as the average accuracy across all four heads in the final training epoch. Specifically the model showcased here has 64 LSTM cells and trained for 10 epochs. The average accuracy achieved among all heads is 97.8%. The accuracy per head is as follows:
+
+* P1: 95.9%
+* P2: 97.6%
+* P3: 99.9%
+* P4: 97.8%
 
 ## Documentation
 
