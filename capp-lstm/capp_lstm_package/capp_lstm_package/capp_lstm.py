@@ -37,11 +37,19 @@ import matplotlib.pyplot as plt
     c_max_steps (int): The number of timesteps to predict. This equals the number of unique available processes.
     c_feature_columns (list): The features used as input.
     training_dataset_path (str): The path to the JSON dataset used for training.
+    c_num_inputs (int): The number of input neurons. Equals to the number of features.   
+    c_num_LSTM_cells (int): The number of LSTM cells.  
+    c_hidden_layer_size (int): The number of fully connected hidden layer
+    
+    batch_size  (int) : The batch size for training and validation.
+    training_epochs (int) : The number of training epochs.
+    
     validation_dataset_path (str): The path to the JSON dataset used for validation.
     evaluation_dataset_path (str): The path to the JSON dataset used for evaluation.
     input_file_path (str): The path to the input JSON file for a single part process chain prediction.
     scaler_path (str): The path to the input features scaller. When new instance is created the scares is overwritten.
     model_path (str): The path to the model. When new instance is created the model is overwritten.
+    
     eval_results (list) : The results from the evaluation. Results include loss and accuracy per head.
     history : The training history.  
     model : The model instance.   
@@ -251,9 +259,7 @@ class CappLSTM:
         self.training_dataset_path   = "../../data/training.json"
         self.validation_dataset_path = "../../data/validation.json"
         self.evaluation_dataset_path = "../../data/test.json"
-        
         self.input_file_path   = "../../data/input.json"
-        self.output_file_path  = "../../data/output.json"
 
         self.scaler_path  = "../../metadata/scaler.ipk"
         self.model_path   = "../../metadata/model.keras"

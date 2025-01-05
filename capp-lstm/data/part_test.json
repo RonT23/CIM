@@ -1,0 +1,12 @@
+[
+    {
+        "part_features": {
+            "geometry": "freeform",
+            "holes": "normal_functional",
+            "external_threads": "yes",
+            "surface_finish": "very_good",
+            "tolerance": "rough",
+            "batch_size": "prototype"
+        }
+    }
+]
