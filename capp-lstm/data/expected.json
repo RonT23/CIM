@@ -2,37 +2,14 @@
     {
         "process_chains": [
             [
-                "5-axis Milling",
+                "Milling",
                 "Drilling",
-                "Reaming",
-                "Thread Milling",
-                "5-axis Grinding",
-                "Superfinishing"
-            ],
-            [
-                "SLM",
-                "Drilling",
-                "Reaming",
-                "Thread Milling",
-                "5-axis Milling Secondary",
-                "5-axis Grinding",
-                "Superfinishing"
+                "Reaming"
             ],
             [
                 "Sand Casting",
                 "Drilling",
-                "Reaming",
-                "Thread Milling",
-                "5-axis Milling Secondary",
-                "5-axis Grinding",
-                "Superfinishing"
-            ],
-            [
-                "Investment Casting",
-                "Reaming",
-                "Thread Milling",
-                "5-axis Grinding",
-                "Superfinishing"
+                "Reaming"
             ]
         ]
     }

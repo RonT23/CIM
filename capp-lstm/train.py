@@ -24,7 +24,7 @@ if __name__ == "__main__":
     capp.scaler_path = "/home/ronaldo/Desktop/CIM/capp-lstm/metadata/scaler.ipk"
 
     # Define the model characteristics
-    capp.c_num_LSTM_cells = 64 
+    capp.c_num_LSTM_cells = 128
     capp.batch_size = 1         
     capp.training_epochs = 10
 

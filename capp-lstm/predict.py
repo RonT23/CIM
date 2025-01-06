@@ -28,8 +28,5 @@ if __name__ == "__main__":
     results = capp.predict()
     
     print("\n\n")
-    print(f"\nProcess Chain 1: {'->'.join(results[0])}")
-    print(f"\nProcess Chain 2: {'->'.join(results[1])}")
-    print(f"\nProcess Chain 3: {'->'.join(results[2])}")
-    print(f"\nProcess Chain 4: {'->'.join(results[3])}")
-
+    for i in range(0, len(results)):
+        print(f"\nProcess Chain {i}: {'->'.join(results[i])}")

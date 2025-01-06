@@ -30,8 +30,11 @@ if __name__ == "__main__":
     # Evaluate the model
     capp.evaluate()
 
+    
     # Display evaluation results
-    p1_loss = capp.eval_results[0]
+    total_loss = capp.eval_results[0]
+
+    p1_loss = capp.eval_results[1]
     p2_loss = capp.eval_results[2]
     p3_loss = capp.eval_results[3]
     p4_loss = capp.eval_results[4]
@@ -41,6 +44,9 @@ if __name__ == "__main__":
     p3_acc = capp.eval_results[7]
     p4_acc = capp.eval_results[8]
 
+    print("\n\n")
+    print(f"Total Loss : {total_loss}")
+    
     print("\n\n")
     print("Evaluation Loss:")
     print(f"\tP1 = {p1_loss}")

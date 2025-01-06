@@ -1,12 +1,12 @@
 [
     {
         "part_features": {
-            "geometry": "freeform",
+            "geometry": "prismatic",
             "holes": "normal_functional",
-            "external_threads": "yes",
-            "surface_finish": "very_good",
+            "external_threads": "no",
+            "surface_finish": "rough",
             "tolerance": "rough",
-            "batch_size": "prototype"
-        }
+            "batch_size": "medium"
+        },
     }
 ]
